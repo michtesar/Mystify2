@@ -132,27 +132,26 @@ class ShadowBuffer {
     }
     return false;
   }
-
-  void moveBufferByOne(Polygon polygon) {
-    // FIXME: Problem with comming from normal to circular buffer
-    if (head < n) {
-      return;
-    }
+  
+  void appendToEmptyBuffer(Polygon polygon) {
+    buffer[head] = new Shadow(polygon);
+    head++;
+  }
+  
+  void appendToFullBuffer(Polygon polygon) {
     Shadow[] newBuffer = new Shadow[n];
-    newBuffer[0] = new Shadow(polygon);
-    for (int i = 1; i < n; i++) {
-      newBuffer[i] = buffer[i-1];
+    for (int i=0; i < n-1; i++) {
+      newBuffer[i] = buffer[i+1];
     }
+    newBuffer[n-1] = new Shadow(polygon);
     buffer = newBuffer;
   }
 
   void add(Polygon polygon) {
-    if (isBufferFull()) {
-      moveBufferByOne(polygon);
-      //head = n;
+    if (isBufferFull()){
+      appendToFullBuffer(polygon);
     } else {
-      buffer[head] = new Shadow(polygon);
-      head++;
+      appendToEmptyBuffer(polygon);
     }
   }
 
