@@ -1,20 +1,26 @@
+/* Each polygon moves over time, there is always nth 
+frame considered as a shadow and drawn to keep better
+track of the polygon trajectory. */
 class Shadow {
   int thickness;
   color lineColor;
   int nVertices;
   PVector[] vertices;
 
+  // Shadow constructor
   Shadow(Polygon polygon) {
     thickness = polygon.thickness;
     lineColor = polygon.lineColor;
     nVertices = polygon.nVertices;
 
+    // Generate verticies
     vertices = new PVector[nVertices];
     for (int i = 0; i < nVertices; i++) {
       vertices[i] = new PVector(polygon.vertices[i].x, polygon.vertices[i].y);
     }
   }
 
+  // Main show method
   void show(int alpha) {
     strokeWeight(thickness);
     stroke(red(lineColor), green(lineColor), blue(lineColor), alpha);
