@@ -132,12 +132,12 @@ class ShadowBuffer {
     }
     return false;
   }
-  
+
   void appendToEmptyBuffer(Polygon polygon) {
     buffer[head] = new Shadow(polygon);
     head++;
   }
-  
+
   void appendToFullBuffer(Polygon polygon) {
     Shadow[] newBuffer = new Shadow[n];
     for (int i=0; i < n-1; i++) {
@@ -148,7 +148,7 @@ class ShadowBuffer {
   }
 
   void add(Polygon polygon) {
-    if (isBufferFull()){
+    if (isBufferFull()) {
       appendToFullBuffer(polygon);
     } else {
       appendToEmptyBuffer(polygon);
