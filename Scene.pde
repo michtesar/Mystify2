@@ -1,7 +1,11 @@
+/* Representation of Mystify2 scene */
 class Scene {
+  // All available polygons in scene
   Polygon[] polygons;
+  // All appropriate shadows that are casted
   ShadowBuffer[] shadows;
 
+  // Scene contructor
   Scene(int nPolygons) {
     polygons = new Polygon[nPolygons];
     shadows = new ShadowBuffer[nPolygons];
@@ -11,6 +15,7 @@ class Scene {
     }
   }
 
+  // Main run function
   void run() {
     for (int i = 0; i < polygons.length; i++) {
       polygons[i].update();
