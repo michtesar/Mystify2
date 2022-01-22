@@ -1,3 +1,5 @@
+/* Class representing a basic shape of the
+screen saver, aka polygon with four vertices. */
 class Polygon {
   int nVertices = 4;
   int thickness = 2;
@@ -7,23 +9,27 @@ class Polygon {
   PVector[] velocity = new PVector[nVertices];
   color lineColor = color(random(255), random(255), random(255), 255);
 
+  // Constructor
   Polygon() {
     getRandomVertices();
     getRandomVelocities();
   }
 
+  // Generate random vertices
   void getRandomVertices() {
     for (int i = 0; i < nVertices; i++) {
       vertices[i] = new PVector(random(width), random(height));
     }
   }
 
+  // Generate random velocities
   void getRandomVelocities() {
     for (int i = 0; i < nVertices; i++) {
       velocity[i] = new PVector(random(1.0, maxSpeed), random(1.0, maxSpeed));
     }
   }
 
+  // Check it the point is in the screen width
   boolean isOutsideScreenX(int i) {
     if ((vertices[i].x > width) || (vertices[i].x < 0)) {
       return true;
@@ -32,6 +38,7 @@ class Polygon {
     }
   }
 
+  // Check it the point is in the screen height
   boolean isOutsideScreenY(int i) {
     if ((vertices[i].y > height) || (vertices[i].y < 0)) {
       return true;
@@ -40,6 +47,7 @@ class Polygon {
     }
   }
 
+  // Update vertex for each frame
   void updateVertex(int i) {
     if (isOutsideScreenX(i)) {
       velocity[i].x *= -1.0;
@@ -51,12 +59,14 @@ class Polygon {
     vertices[i].y += cos(velocity[i].y) * velocity[i].y;
   }
 
+  // Update all vertices for each frame
   void update() {
     for (int i = 0; i < nVertices; i++) {
       updateVertex(i);
     }
   }
 
+  // Show object on the screen
   void show() {
     strokeWeight(thickness);
     stroke(lineColor);
